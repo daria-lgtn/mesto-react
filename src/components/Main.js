@@ -21,21 +21,21 @@ export function Main(props) {
         avatar: me.avatar,
         id: me._id,
       });
-    });
+    }).catch((e) => console.log(e));
   }, []);
 
   const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
-    api.cardGetAll().then((cards) => {
+    api.getAllCards().then((cards) => {
       setCards(cards);
-    });
+    }).catch((e) => console.log(e));
   }, []);
 
   return (
     <main>
       <section className="traveller">
-        <div className="traveller-image" onClick={onEditProfile}>
+        <div className="traveller-image" onClick={onEditAvatar}>
           <img
             className="traveller-image__illustration"
             src={userInfo.avatar}
@@ -49,7 +49,7 @@ export function Main(props) {
 
             <button
               type="button"
-              onClick={onEditAvatar}
+              onClick={onEditProfile}
               className="traveller__info-full-name-edit-btn"
             ></button>
           </div>
@@ -63,8 +63,8 @@ export function Main(props) {
       </section>
 
       <section className="places">
-        {cards.map((card, index) => (
-          <Card card={card} key={index} onCardClick={handleCardClick} />
+        {cards.map((card) => (
+          <Card card={card} key={card._id} onCardClick={handleCardClick} />
         ))}
       </section>
     </main>

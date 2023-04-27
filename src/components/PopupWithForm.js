@@ -3,7 +3,7 @@ export function PopupWithForm(props) {
 
   return (
     <div
-      className={`popup popup_type-${name} ${isOpen && "popup_opened"}`}
+      className={`popup popup_type-${name} ${isOpen ? "popup_opened": ''}`}
       tabIndex="0"
     >
       <div className="popup__container">

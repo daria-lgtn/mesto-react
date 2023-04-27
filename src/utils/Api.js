@@ -31,7 +31,7 @@ export default class Api {
     });
   }
 
-  profileUpdate(data) {
+  updateProfile(data) {
     return this._fetch({
       url: `https://nomoreparties.co/v1/${this._cohortId}/users/me`,
       method: "PATCH",
@@ -39,7 +39,7 @@ export default class Api {
     });
   }
 
-  profileAvatarUpdate(data) {
+  updateProfileAvatar(data) {
     return this._fetch({
       url: `https://nomoreparties.co/v1/${this._cohortId}/users/me/avatar`,
       method: "PATCH",
@@ -47,14 +47,14 @@ export default class Api {
     });
   }
 
-  cardDelete(id) {
+  deleteCard(id) {
     return this._fetch({
       url: `https://nomoreparties.co/v1/${this._cohortId}/cards/${id}`,
       method: "DELETE",
     });
   }
 
-  cardSubmit(data) {
+  submitCard(data) {
     return this._fetch({
       url: `https://nomoreparties.co/v1/${this._cohortId}/cards`,
       method: "POST",
@@ -62,21 +62,21 @@ export default class Api {
     });
   }
 
-  cardGetAll() {
+  getAllCards() {
     return this._fetch({
       url: `https://mesto.nomoreparties.co/v1/${this._cohortId}/cards`,
       method: "GET",
     });
   }
 
-  cardLike(id) {
+  likeCard(id) {
     return this._fetch({
       url: `https://mesto.nomoreparties.co/v1/${this._cohortId}/cards/${id}/likes`,
       method: "PUT",
     });
   }
 
-  cardLikeUndo(id) {
+  likeCardUndo(id) {
     return this._fetch({
       url: `https://mesto.nomoreparties.co/v1/${this._cohortId}/cards/${id}/likes`,
       method: "DELETE",
