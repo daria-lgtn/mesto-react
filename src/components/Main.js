@@ -1,36 +1,19 @@
 import React from "react";
-import traveller from "../images/traveller.jpg";
-import { api } from "../utils/Api";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { Card } from "./Card";
 
 export function Main(props) {
-  const { onEditProfile, onAddPlace, onEditAvatar, handleCardClick } = props;
+  const {
+    cards,
+    onCardLike,
+    onCardDelete,
+    onEditProfile,
+    onAddPlace,
+    onEditAvatar,
+    handleCardClick,
+  } = props;
 
-  const [userInfo, setUserInfo] = React.useState({
-    name: "",
-    description: "",
-    avatar: "",
-    id: "",
-  });
-
-  React.useEffect(() => {
-    api.me().then((me) => {
-      setUserInfo({
-        name: me.name,
-        description: me.about,
-        avatar: me.avatar,
-        id: me._id,
-      });
-    }).catch((e) => console.log(e));
-  }, []);
-
-  const [cards, setCards] = React.useState([]);
-
-  React.useEffect(() => {
-    api.getAllCards().then((cards) => {
-      setCards(cards);
-    }).catch((e) => console.log(e));
-  }, []);
+  const currentUser = React.useContext(CurrentUserContext);
 
   return (
     <main>
@@ -38,14 +21,16 @@ export function Main(props) {
         <div className="traveller-image" onClick={onEditAvatar}>
           <img
             className="traveller-image__illustration"
-            src={userInfo.avatar}
+            src={currentUser.avatar}
             alt="Фотография путешественника"
           />
           <div className="traveller-image__edit"></div>
         </div>
         <div className="traveller__info">
           <div className="traveller__info-full-name">
-            <h1 className="traveller__info-full-name-label">{userInfo.name}</h1>
+            <h1 className="traveller__info-full-name-label">
+              {currentUser.name}
+            </h1>
 
             <button
               type="button"
@@ -53,7 +38,9 @@ export function Main(props) {
               className="traveller__info-full-name-edit-btn"
             ></button>
           </div>
-          <p className="traveller__info-description">{userInfo.description}</p>
+          <p className="traveller__info-description">
+            {currentUser.description}
+          </p>
         </div>
         <button
           type="button"
@@ -64,7 +51,13 @@ export function Main(props) {
 
       <section className="places">
         {cards.map((card) => (
-          <Card card={card} key={card._id} onCardClick={handleCardClick} />
+          <Card
+            card={card}
+            key={card._id}
+            onCardLike={onCardLike}
+            onCardDelete={onCardDelete}
+            onCardClick={handleCardClick}
+          />
         ))}
       </section>
     </main>

@@ -3,7 +3,7 @@ export function ImagePopup(props) {
 
   return (
     <div
-      className={`popup popup_type-preview ${card ? "popup_opened" : ''}`}
+      className={`popup popup_type-preview ${card ? "popup_opened" : ""}`}
       tabIndex="0"
     >
       <div className="popup__container">

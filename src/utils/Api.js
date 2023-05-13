@@ -69,17 +69,10 @@ export default class Api {
     });
   }
 
-  likeCard(id) {
+  likeCard(id, isLiked) {
     return this._fetch({
       url: `https://mesto.nomoreparties.co/v1/${this._cohortId}/cards/${id}/likes`,
-      method: "PUT",
-    });
-  }
-
-  likeCardUndo(id) {
-    return this._fetch({
-      url: `https://mesto.nomoreparties.co/v1/${this._cohortId}/cards/${id}/likes`,
-      method: "DELETE",
+      method: isLiked ? "DELETE" : "PUT",
     });
   }
 }

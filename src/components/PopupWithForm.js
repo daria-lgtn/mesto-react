@@ -1,9 +1,9 @@
 export function PopupWithForm(props) {
-  const { name, children, title, isOpen, onClose } = props;
+  const { name, children, title, isOpen, onClose, onSubmit } = props;
 
   return (
     <div
-      className={`popup popup_type-${name} ${isOpen ? "popup_opened": ''}`}
+      className={`popup popup_type-${name} ${isOpen ? "popup_opened" : ""}`}
       tabIndex="0"
     >
       <div className="popup__container">
@@ -13,6 +13,7 @@ export function PopupWithForm(props) {
           onClick={onClose}
         ></button>
         <form
+          onSubmit={onSubmit}
           noValidate
           name={`form-${name}`}
           className="popup__container-form"
