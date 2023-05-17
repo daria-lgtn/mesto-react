@@ -13,7 +13,9 @@ export function EditAvatarPopup(props) {
 
     onUpdateAvatar({
       avatar: ref.current.value,
-    }).then(onClose);
+    })
+      .then(onClose)
+      .catch((e) => console.log(e));
   }
 
   return (

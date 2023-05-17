@@ -1,18 +1,15 @@
 import { authorization, cohortId } from "./constants";
 
 export default class Api {
-  constructor({ cohortId, authorization }) {
-    this._cohortId = cohortId;
-    this._authorization = authorization;
+  constructor({ baseUrl, headers }) {
+    this._baseUrl = baseUrl;
+    this._headers = headers;
   }
 
   _fetch({ url, method, body }) {
-    return fetch(url, {
+    return fetch(`${this._baseUrl}/${url}`, {
       method,
-      headers: {
-        authorization: this._authorization,
-        "Content-Type": "application/json",
-      },
+      headers: this._headers,
       body,
     }).then((res) => {
       if (res.ok) {
@@ -26,14 +23,14 @@ export default class Api {
 
   me() {
     return this._fetch({
-      url: `https://nomoreparties.co/v1/${this._cohortId}/users/me`,
+      url: `/users/me`,
       method: "GET",
     });
   }
 
   updateProfile(data) {
     return this._fetch({
-      url: `https://nomoreparties.co/v1/${this._cohortId}/users/me`,
+      url: `/users/me`,
       method: "PATCH",
       body: JSON.stringify(data),
     });
@@ -41,7 +38,7 @@ export default class Api {
 
   updateProfileAvatar(data) {
     return this._fetch({
-      url: `https://nomoreparties.co/v1/${this._cohortId}/users/me/avatar`,
+      url: `/users/me/avatar`,
       method: "PATCH",
       body: JSON.stringify(data),
     });
@@ -49,14 +46,14 @@ export default class Api {
 
   deleteCard(id) {
     return this._fetch({
-      url: `https://nomoreparties.co/v1/${this._cohortId}/cards/${id}`,
+      url: `/cards/${id}`,
       method: "DELETE",
     });
   }
 
   submitCard(data) {
     return this._fetch({
-      url: `https://nomoreparties.co/v1/${this._cohortId}/cards`,
+      url: `/cards`,
       method: "POST",
       body: JSON.stringify(data),
     });
@@ -64,20 +61,24 @@ export default class Api {
 
   getAllCards() {
     return this._fetch({
-      url: `https://mesto.nomoreparties.co/v1/${this._cohortId}/cards`,
+      url: `/cards`,
       method: "GET",
     });
   }
 
   likeCard(id, isLiked) {
     return this._fetch({
-      url: `https://mesto.nomoreparties.co/v1/${this._cohortId}/cards/${id}/likes`,
+      url: `/cards/${id}/likes`,
       method: isLiked ? "DELETE" : "PUT",
     });
   }
 }
 
 export const api = new Api({
+  baseUrl: `https://mesto.nomoreparties.co/v1/${cohortId}/`,
+  headers: {
+    authorization,
+    "Content-Type": "application/json",
+  },
   cohortId,
-  authorization,
 });

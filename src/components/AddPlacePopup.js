@@ -20,7 +20,9 @@ export function AddPlacePopup(props) {
     onPlaceAdd({
       name,
       link,
-    }).then(onClose);
+    })
+      .then(onClose)
+      .catch((e) => console.log(e));
   }
 
   return (

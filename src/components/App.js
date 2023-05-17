@@ -1,14 +1,14 @@
 import React from "react";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { api } from "../utils/Api";
+import { AddPlacePopup } from "./AddPlacePopup";
+import { EditAvatarPopup } from "./EditAvatarPopup";
+import { EditProfilePopup } from "./EditProfilePopup";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { ImagePopup } from "./ImagePopup";
 import { Main } from "./Main";
 import { PopupWithForm } from "./PopupWithForm";
-import { api } from "../utils/Api";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import { EditProfilePopup } from "./EditProfilePopup";
-import { EditAvatarPopup } from "./EditAvatarPopup";
-import { AddPlacePopup } from "./AddPlacePopup";
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({
@@ -68,17 +68,22 @@ function App() {
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser.id);
 
-    api.likeCard(card._id, isLiked).then((newCard) => {
-      const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
-      setCards(newCards);
-    });
+    api
+      .likeCard(card._id, isLiked)
+      .then((newCard) => {
+        const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
+        setCards(newCards);
+      })
+      .catch((e) => console.log(e));
   }
 
   function handleCardDelete(card) {
-    api.deleteCard(card._id).then(() => {
-      const newCards = cards.filter((c) => c._id !== card._id);
-      setCards(newCards);
-    });
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        setCards((state) => state.filter((item) => item._id !== card._id));
+      })
+      .catch((e) => console.log(e));
   }
 
   function handleUpdateUser({ name, description }) {
@@ -115,7 +120,7 @@ function App() {
     return api
       .submitCard(data)
       .then((newCard) => {
-        setCards([...cards, newCard]);
+        setCards([newCard, ...cards]);
       })
       .catch((e) => console.log(e));
   }
@@ -155,14 +160,7 @@ function App() {
           onPlaceAdd={handleAddNewPlace}
         />
 
-        <PopupWithForm name="card-confirm" title="Вы уверены?">
-          <input
-            name="id"
-            required
-            type="hidden"
-            className="popup__container-input popup__container-input_type-id"
-          />
-        </PopupWithForm>
+        <PopupWithForm name="card-confirm" title="Вы уверены?" />
 
         <ImagePopup onClose={closeAllPopups} card={selectedCard} />
       </div>

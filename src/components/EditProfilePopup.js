@@ -12,7 +12,7 @@ export function EditProfilePopup(props) {
   React.useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.description);
-  }, [currentUser]);
+  }, [currentUser, isOpen]);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -24,7 +24,9 @@ export function EditProfilePopup(props) {
   function handleSubmit(e) {
     e.preventDefault();
 
-    onUpdateUser({ name, description }).then(onClose);
+    onUpdateUser({ name, description })
+      .then(onClose)
+      .catch((e) => console.log(e));
   }
 
   return (

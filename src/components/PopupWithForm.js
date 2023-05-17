@@ -11,10 +11,9 @@ export function PopupWithForm(props) {
           type="button"
           className="popup__container-close-btn"
           onClick={onClose}
-        ></button>
+        />
         <form
           onSubmit={onSubmit}
-          noValidate
           name={`form-${name}`}
           className="popup__container-form"
         >
