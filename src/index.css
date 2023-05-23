@@ -10,6 +10,13 @@
 @import url(./blocks/footer/footer.css);
 @import url(./blocks/footer/__info/footer__info.css);
 
+@import url(./blocks/auth/auth.css);
+@import url(./blocks/auth/__container-alt-btn/auth__container-alt-btn.css);
+@import url(./blocks/auth/__container-input/auth__container-input.css);
+@import url(./blocks/auth/__container-save-btn/auth__container-save-btn.css);
+@import url(./blocks/auth/__link/auth__link.css);
+@import url(./blocks/auth/__title/auth__title.css);
+
 @import url(./blocks/places/places.css);
 @import url(./blocks/place-card/place-card.css);
 @import url(./blocks/place-card/__delete-btn/place-card__delete-btn.css);
@@ -37,6 +44,10 @@
 @import url(./blocks/popup/_type-preview/popup_type-preview.css);
 @import url(./blocks/popup/__container-close-btn/popup__container-close-btn.css);
 @import url(./blocks/popup/__container-form/popup__container-form.css);
+@import url(./blocks/popup/__container-tooltip/popup__container-tooltip.css);
+@import url(./blocks/popup/__container-tooltip-message/popup__container-tooltip-message.css);
+@import url(./blocks/popup/__container-tooltip-img-success/popup__container-tooltip-img-success.css);
+@import url(./blocks/popup/__container-tooltip-img-failure/popup__container-tooltip-img-failure.css);
 @import url(./blocks/popup/__container-input/popup__container-input.css);
 @import url(./blocks/popup/__container-input/_error/popup__container-input_error.css);
 @import url(./blocks/popup/__container-input-error/popup__container-input-error.css);

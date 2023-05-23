@@ -1,0 +1,17 @@
+.auth__container-save-btn {
+  background: #ffffff;
+  border-radius: 2px;
+  padding: 14px 84px;
+  width: 100%;
+  border: none;
+
+  text-align: center;
+  color: #000000;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+
+  margin-top: 216px;
+  cursor: pointer;
+}

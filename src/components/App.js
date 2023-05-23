@@ -10,7 +10,9 @@ import { ImagePopup } from "./ImagePopup";
 import { Main } from "./Main";
 import { PopupWithForm } from "./PopupWithForm";
 
-function App() {
+export function App(props) {
+  const { handleLogout } = props;
+
   const [currentUser, setCurrentUser] = React.useState({
     name: "",
     description: "",
@@ -21,12 +23,12 @@ function App() {
   React.useEffect(() => {
     api
       .me()
-      .then((me) => {
+      .then(({ data }) => {
         setCurrentUser({
-          name: me.name,
-          description: me.about,
-          avatar: me.avatar,
-          id: me._id,
+          name: data.name,
+          description: data.about,
+          avatar: data.avatar,
+          id: data._id,
         });
       })
       .catch((e) => console.log(e));
@@ -59,8 +61,8 @@ function App() {
   React.useEffect(() => {
     api
       .getAllCards()
-      .then((cards) => {
-        setCards(cards);
+      .then(({ data }) => {
+        setCards(data);
       })
       .catch((e) => console.log(e));
   }, []);
@@ -128,7 +130,11 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header />
+        <Header>
+          <button className="auth__link" onClick={handleLogout}>
+            Выйти
+          </button>
+        </Header>
 
         <Main
           cards={cards}
@@ -167,5 +173,3 @@ function App() {
     </CurrentUserContext.Provider>
   );
 }
-
-export default App;

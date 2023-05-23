@@ -1,0 +1,15 @@
+.auth__container-alt-btn {
+  background-color: transparent;
+  border: none;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+
+  text-align: center;
+  color: #ffffff;
+
+  margin-top: 15px;
+  width: 100%;
+  cursor: pointer;
+}

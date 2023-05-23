@@ -1,15 +1,19 @@
-import { authorization, cohortId } from "./constants";
+import { cohortId } from "./constants";
 
 export default class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
+    this._token = null;
   }
 
   _fetch({ url, method, body }) {
-    return fetch(`${this._baseUrl}/${url}`, {
+    return fetch(`${this._baseUrl}${url}`, {
       method,
-      headers: this._headers,
+      headers: {
+        ...this._headers,
+        Authorization: `Bearer ${this._token}`,
+      },
       body,
     }).then((res) => {
       if (res.ok) {
@@ -21,10 +25,35 @@ export default class Api {
     });
   }
 
-  me() {
+  me(jwt) {
+    if (jwt) {
+      this._token = jwt;
+    }
+
     return this._fetch({
       url: `/users/me`,
       method: "GET",
+    });
+  }
+
+  signUp(data) {
+    return this._fetch({
+      url: `/signup`,
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+  }
+
+  signIn(data) {
+    return this._fetch({
+      url: `/signin`,
+      method: "POST",
+      body: JSON.stringify(data),
+    }).then((data) => {
+      if (data.token) {
+        this._token = data.token;
+      }
+      return data;
     });
   }
 
@@ -75,9 +104,8 @@ export default class Api {
 }
 
 export const api = new Api({
-  baseUrl: `https://mesto.nomoreparties.co/v1/${cohortId}/`,
+  baseUrl: `https://auth.nomoreparties.co`,
   headers: {
-    authorization,
     "Content-Type": "application/json",
   },
   cohortId,

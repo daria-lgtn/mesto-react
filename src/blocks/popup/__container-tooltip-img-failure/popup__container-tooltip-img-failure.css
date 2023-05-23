@@ -1,0 +1,8 @@
+.popup__container-tooltip-img-failure {
+  background-image: url(../../../images/failure.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 120px 120px;
+  width: 120px;
+  height: 120px;
+}
